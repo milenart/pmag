@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         if (weightSum > 0) {
             val estimatedLatitude = weightedLatitudeSum / weightSum
             val estimatedLongitude = weightedLongitudeSum / weightSum
-
+        }
             
 
 
