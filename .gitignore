@@ -1,15 +1,69 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files (prawdopodobnie niepotrzebne w Androidzie, można usunąć)
+*.ctxt
+
+# Mobile Tools for Java (J2ME) (prawdopodobnie niepotrzebne w Androidzie, można usunąć)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# IntelliJ IDEA related files
+.idea/
 *.iml
-.gradle
-/local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
+
+# Gradle related files
+.gradle
 /build
+
+# Local configuration files (VERY IMPORTANT TO IGNORE)
+/local.properties
+
+# macOS
+.DS_Store
+
+# Android Studio specific
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
+# Kotlin build output (może być już pokryte przez /build, ale dla pewności)
+/out
+
+# APK and Bundle files
+*.apk
+*.apks
+*.aab
+
+# CMake and NDK build outputs
+cmake-build-debug/
+cmake-build-release/
+ndkBuild/
+
+# Profiling and memory dumps
+profile*.raw
+*.hprof
+
+# ProGuard/R8 output
+proguard/
