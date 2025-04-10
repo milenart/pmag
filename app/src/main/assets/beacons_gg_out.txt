@@ -1,0 +1,152 @@
+{
+    "items": [
+        {
+            "id": 3049,
+            "longitude": 21.00975662345174,
+            "latitude": 52.22061839376934,
+            "numberOnFloor": 9,
+            "beaconUid": "E8:64:B8:C6:5F:9D",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3051,
+            "longitude": 21.009533906103478,
+            "latitude": 52.22042379789738,
+            "numberOnFloor": 11,
+            "beaconUid": "CD:75:F0:F6:C9:E8",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3050,
+            "longitude": 21.00944453540003,
+            "latitude": 52.22058451328007,
+            "numberOnFloor": 10,
+            "beaconUid": "C6:48:2F:82:C0:9C",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3048,
+            "longitude": 21.009584975076873,
+            "latitude": 52.220667042626474,
+            "numberOnFloor": 8,
+            "beaconUid": "E2:EE:EE:B0:CD:66",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3047,
+            "longitude": 21.01006719936822,
+            "latitude": 52.22078300276527,
+            "numberOnFloor": 7,
+            "beaconUid": "F8:E0:4B:C0:76:46",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3041,
+            "longitude": 21.010083684392022,
+            "latitude": 52.22093190830657,
+            "numberOnFloor": 1,
+            "beaconUid": "D0:0D:06:DB:51:46",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3046,
+            "longitude": 21.00985495383773,
+            "latitude": 52.22077921701677,
+            "numberOnFloor": 6,
+            "beaconUid": "D3:3E:D4:95:33:25",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3045,
+            "longitude": 21.00969113331229,
+            "latitude": 52.22082716972787,
+            "numberOnFloor": 5,
+            "beaconUid": "C1:B9:08:E1:39:D3",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3044,
+            "longitude": 21.00967361793912,
+            "latitude": 52.22092181304649,
+            "numberOnFloor": 4,
+            "beaconUid": "F7:75:35:FD:DE:C6",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3043,
+            "longitude": 21.00977871031963,
+            "latitude": 52.2209785989495,
+            "numberOnFloor": 3,
+            "beaconUid": "E2:53:63:7D:2A:81",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3042,
+            "longitude": 21.009960046288985,
+            "latitude": 52.22101330141848,
+            "numberOnFloor": 2,
+            "beaconUid": "CE:2F:28:4A:F7:90",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        },
+        {
+            "id": 3052,
+            "longitude": 21.009806273994066,
+            "latitude": 52.220446384994744,
+            "numberOnFloor": 12,
+            "beaconUid": "CD:01:DF:3B:D7:BA",
+            "floorId": 99,
+            "buildingShortName": null,
+            "roomPlaced": false,
+            "nearFloorChange": false,
+            "txPowerToSet": 248
+        }
+    ],
+    "totalPages": 1,
+    "itemsFrom": 1,
+    "itemsTo": 11000,
+    "totalItemsCount": 12
+}
