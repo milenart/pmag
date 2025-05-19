@@ -47,6 +47,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "pw.MainActivity"
     }
+    // flaga czy wyswietlac komunikat o braku wystarczajacej liczby beconow do trilateracji
+    private var notEnoughBeaconsForTrilaterationToastShown = false
+
     private lateinit var locationOverlay: MyLocationNewOverlay
     private lateinit var connectionStateReceiver: ConnectionStateChangeReceiver
     private var beaconManager: BeaconManager? = null
@@ -107,11 +110,12 @@ class MainActivity : AppCompatActivity() {
         val checkboxAlgorithmMap = mapOf(
             R.id.checkbox_algorithm_1 to "Weighted Sum",
             R.id.checkbox_algorithm_2 to "Trilateration",
-            R.id.checkbox_algorithm_3 to "GNSS"
+            R.id.checkbox_algorithm_3 to "GNSS",
+            R.id.checkbox_algorithm_4 to "Snap to Closest"
         )
 
         val checkboxList = mutableListOf<CheckBox>()
-        for ((id, algorithmName) in checkboxAlgorithmMap) { // Use destructuring
+        for ((id, algorithmName) in checkboxAlgorithmMap) {
             val checkBox = findViewById<CheckBox>(id)
             checkboxList.add(checkBox)
             activeCalculatedMarkers[algorithmName] = CalculatedMarker(algorithmName)
@@ -152,9 +156,9 @@ class MainActivity : AppCompatActivity() {
                                         setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                                         // Use ContextCompat for loading drawables safely
                                         icon = when (algorithmName) {
-                                            "Weighted Sum" -> ContextCompat.getDrawable(this@MainActivity, R.drawable.red_marker_rsized)
-                                            "Trilateration" -> ContextCompat.getDrawable(this@MainActivity, R.drawable.black_marker_rsized)
-                                            // Remove GNSS case - its icon is handled by locationOverlay
+                                            "Weighted Sum" -> ContextCompat.getDrawable(this@MainActivity, R.drawable.niebieski)
+                                            "Trilateration" -> ContextCompat.getDrawable(this@MainActivity, R.drawable.fioletowy_chat)
+                                            "Snap to Closest" -> ContextCompat.getDrawable(this@MainActivity, R.drawable.zielony_chat)
                                             else -> ContextCompat.getDrawable(this@MainActivity, org.osmdroid.library.R.drawable.marker_default)
                                         }
                                     }
@@ -182,6 +186,32 @@ class MainActivity : AppCompatActivity() {
         } // end forEach
     }
 
+    private fun calculateDevicePositionByClosestBeacon(beacons: Collection<Beacon>): Pair<Double, Double>? {
+        if (beacons.isEmpty()) {
+            Log.d(TAG, "SnapToClosest: Brak wykrytych beaconów.")
+            return null
+        }
+
+        // Znajdź najbliższy beacon na podstawie zmierzonej odległości
+        val closestScannedBeacon = beacons.minByOrNull { it.distance }
+
+        if (closestScannedBeacon == null) {
+            Log.d(TAG, "SnapToClosest: Nie udało się znaleźć najbliższego beacona (minByOrNull zwrócił null).")
+            return null
+        }
+
+        val archiveData = archiveBeacon.find { it.beaconUid == closestScannedBeacon.bluetoothAddress }
+
+        return if (archiveData != null && archiveData.latitude != null && archiveData.longitude != null) {
+            Log.d(TAG, "SnapToClosest: Pozycja z najbliższego beacona ${archiveData.beaconUid}: Lat=${archiveData.latitude}, Lon=${archiveData.longitude}")
+            Pair(archiveData.latitude, archiveData.longitude)
+        } else {
+            Log.w(TAG, "SnapToClosest: Nie znaleziono danych archiwalnych lub brak współrzędnych dla najbliższego beacona: ${closestScannedBeacon.bluetoothAddress}")
+            Toast.makeText(this, "Brak danych archiwalnych dla najbliższego beacona: ${closestScannedBeacon.id1 ?: closestScannedBeacon.bluetoothAddress}", Toast.LENGTH_SHORT).show()
+            null
+        }
+    }
+
     private fun recalculatePositions(beacons: Collection<Beacon>) {
         var needsRedraw = false
         for ((algorithmName, markerData) in activeCalculatedMarkers) {
@@ -201,6 +231,7 @@ class MainActivity : AppCompatActivity() {
                 val newPosition: Pair<Double, Double>? = when (algorithmName) {
                     "Weighted Sum" -> calculateDevicePositionByWeightedSum(beacons)
                     "Trilateration" -> calculateDevicePositionByTrilateration(beacons)
+                    "Snap to Closest" -> calculateDevicePositionByClosestBeacon(beacons)
                     else -> null // Should not happen based on current setup
                 }
 
@@ -398,9 +429,20 @@ class MainActivity : AppCompatActivity() {
 
         // 2. Check if we have enough valid beacons
         if (validBeacons.size < minRequiredBeacons) {
-            //Log.w(TAG, "Trilateration requires at least $minRequiredBeacons known beacons, found ${validBeacons.size}")
-            Toast.makeText(this, "Not enough known beacons for trilateration (${validBeacons.size}/$minRequiredBeacons)", Toast.LENGTH_SHORT).show()
+            if (!notEnoughBeaconsForTrilaterationToastShown) { // Sprawdź flagę
+                Toast.makeText(
+                    this,
+                    "Trilateracja: Za mało znanych beaconów (${validBeacons.size}/$minRequiredBeacons). Oczekiwanie...",
+                    Toast.LENGTH_LONG // Możesz użyć LENGTH_LONG dla ważniejszych komunikatów
+                ).show()
+                notEnoughBeaconsForTrilaterationToastShown = true // Ustaw flagę, że Toast został pokazany
+            }
+            // Log.w(TAG, "Trilateration requires at least $minRequiredBeacons known beacons, found ${validBeacons.size}")
             return null
+        } else {
+            // Jeśli mamy wystarczająco dużo beaconów, zresetuj flagę,
+            // aby Toast mógł się pojawić ponownie, jeśli sytuacja się pogorszy.
+            notEnoughBeaconsForTrilaterationToastShown = false
         }
 
         // 3. Select the three closest beacons (simplest approach, not always geometrically optimal)

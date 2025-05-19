@@ -50,8 +50,13 @@
                 android:id="@+id/checkbox_algorithm_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Algorytm C" />
+                android:text="GNSS" />
 
+            <CheckBox
+                android:id="@+id/checkbox_algorithm_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Najbliższy beacon" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
